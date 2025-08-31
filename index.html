@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+     <style>
+       
+        body {
+            background-color:white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh; 
+            margin: 0;
+        }
+
+        .maindiv {
+            background-color:white;
+            padding: 25px 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px black;
+            width: 400px;
+            text-align: center;
+        }
+
+        label {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #333;
+        }
+
+        #task {
+            width: 100%;
+            padding: 10px;
+            margin-top: 15px;
+            border: 1px solid rgb(157, 156, 153);
+            border-radius: 6px;
+            box-sizing: border-box; 
+            font-size: 1rem;
+            resize: vertical; 
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            margin-top: 15px;
+            background-color: royalblue;
+            color: white;
+            border: 2px solid grey;
+            border-radius: 6px;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        .added {
+            margin-top: 20px;
+            max-height: 30vh;
+            overflow: auto;
+        }
+
+        .alladded {
+            list-style-type: none; 
+            padding: 0;
+            text-align: left;
+        }
+
+        .alladded li {
+            background-color: #07070822;
+            padding: 12px;
+            margin-top: 8px;
+            border-radius: 6px;
+           
+        }
+
+        .deletebtn{
+            width: 50%;
+            margin-left: 50%;
+            background-color: red;
+        }
+        .deletebtn:hover{
+            background-color: rgb(255, 107, 107);
+        }
+
+     
+        .marks-section {
+            margin-top: 25px;
+            padding: 15px;
+            border-top: 2px solid #beddfe;
+            text-align: center;
+        }
+
+        .marks-section input {
+            width: 80px;
+            padding: 8px;
+            font-size: 1rem;
+            text-align: center;
+            margin-top: 10px;
+        }
+
+        .marks-section button {
+            width: auto;
+            margin-top: 10px;
+            padding: 8px 16px;
+            background-color: blue;
+            border: none;
+            color: white;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .marks-section button:hover {
+            background-color: royalblue;
+        }
+
+        .marks-display {
+            margin-top: 12px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #333;
+        }
+        #marksDisplay{
+            margin-top: 10px;
+            font-size: 2rem;
+        }
+      
+    </style>
+</head>
+<body>
+
+    <div class="maindiv">
+        <label for="">Enter Your Task</label><br><br>
+        <textarea name="" id="task" placeholder="Enter Your Task"></textarea><br>
+        <button onclick="addItem()">Add</button>
+        <div class="added">
+            <ul class="alladded"></ul>
+        </div>
+
+      
+        <div class="marks-section">
+            <label for="marks">Only for Trainer_Faculty</label><br>
+            <input type="number" id="marks" min="0" max="100" placeholder="0-100">
+            <br>
+            <button onclick="submitMarks()">Submit Marks</button>
+            <div class="marks-display" id="marksDisplay"></div>
+        </div>
+    </div>
+    
+    <script>
+        let count = 0;
+        function addItem(){
+            let task = document.querySelector("#task").value;
+            if(task == ""){
+                alert("Enter Something")
+            } else {
+                count++;
+                let li = document.createElement("li");
+
+                let btn = document.createElement("button");
+                btn.textContent = "Delete";
+                btn.classList.add("deletebtn");
+
+                li.textContent = count + ". " + task + " ";
+                li.appendChild(btn);
+
+                btn.addEventListener("click",()=>{
+                    li.remove();
+                });
+
+                document.querySelector(".alladded").appendChild(li);
+                document.querySelector("#task").value = "";
+            }
+        }
+
+        function submitMarks(){
+            let marks = document.getElementById("marks").value;
+            if(marks === "" || marks < 0 || marks > 100){
+                alert("Please enter valid marks between 0 and 100");
+            } else {
+                document.getElementById("marksDisplay").textContent = "Marks Awarded: " + marks;
+            }
+        }
+    </script>
+</body>
+</html>
